@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 type LoginProcessResponse = {
   status: string;
@@ -26,7 +28,7 @@ function Login() {
     if (dataObject.status === "success") {
       localStorage.setItem("token", dataObject.token ?? "");
       localStorage.setItem("user", JSON.stringify(dataObject.user));
-      setMessage("Initiating session...");
+      //setMessage("Initiating session...");
       navigate("/dashboard");
     } else {
       setMessage(dataObject.message ?? "Unknown error");
@@ -61,10 +63,6 @@ function Login() {
     const tieneNumero = /\d/.test(p);
   }
 
-  function handleChangeHola(e: any) {
-    setNewPassword(e.target.value);
-  }
-
   useEffect(() => {
     //se ejecuta 2°
     if (newPassword) checkNewPassword(newPassword);
@@ -91,41 +89,50 @@ function Login() {
       >
         <h1 className="text-center mb-3">Login</h1>
         <form onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label htmlFor="inputUser" className="form-label">
-              User
-            </label>
+        <div className="mb-3">
+          <label htmlFor="inputUser" className="form-label">User</label>
+          <div className="input-group">
+            <span className="input-group-text bg-white border-end-0">
+              <i className="bi bi-person" />
+            </span>
             <input
               type="text"
-              className="form-control"
+              className="form-control border-start-0"
               id="inputUser"
               ref={userInputRef}
               aria-describedby="userHelp"
             />
-            <div id="userHelp" className="form-text">
-              Nunca compartas tu cuenta con nadie.
-            </div>
           </div>
+      </div>
 
-          <div className="mb-4">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
+        <div className="mb-4">
+          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+          <div className="input-group">
+            <span className="input-group-text bg-white border-end-0">
+              <i className="bi bi-lock" />
+            </span>
             <input
               type="password"
-              className="form-control"
+              className="form-control border-start-0"
               id="exampleInputPassword1"
               ref={passInputRef}
             />
           </div>
+        </div>
 
-          <input type="text" onChange={handleChangeHola} />
-
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-          <span className="ms-3">{message}</span>
-        </form>
+  <div className="text-center">
+    <button type="submit" className="btn btn-primary px-4 py-1 fs-5">
+      Login
+    </button>
+    <div className="mt-3">
+      <span>¿No tienes cuenta? </span>
+      <Link to="/register" className="text-primary text-decoration-none fw-semibold">
+        Crear una aquí
+      </Link>
+    </div>
+    <div className="mt-2 text-danger">{message}</div>
+  </div>
+</form>
       </div>
     </div>
   );
