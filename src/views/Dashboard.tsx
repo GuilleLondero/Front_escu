@@ -85,50 +85,6 @@ function Dashboard() {
 
   return (
     <div style={{ fontFamily: "'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif", minHeight: '100vh', backgroundColor: customStyles.neutralLight }}>
-      {/* Header/Navbar */}
-      <nav className="navbar navbar-expand-lg shadow-sm" style={{ backgroundColor: customStyles.primaryColor }}>
-        <div className="container-fluid px-4">
-          {/* Logo/Título */}
-          <span className="navbar-brand mb-0 h1 text-white fw-bold fs-3">
-            Sistema-Escuela
-          </span>
-          
-          {/* Menú de navegación */}
-          <div className="navbar-nav d-flex flex-row me-auto">
-            <button 
-              className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-              onClick={() => window.location.href = '/dashboard'}
-              style={{ background: 'none' }}
-            >
-              Dashboard
-            </button>
-            <button 
-              className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-              onClick={() => window.location.href = '/profile'}
-              style={{ background: 'none' }}
-            >
-              Profile
-            </button>
-            <button 
-              className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-              onClick={() => window.location.href = '/notifications'}
-              style={{ background: 'none' }}
-            >
-              Notifications
-            </button>
-          </div>
-          
-          {/* Botón Logout a la derecha */}
-          <button 
-            className="btn btn-outline-light rounded-2 fw-medium"
-            onClick={handleLogout}
-            style={{ borderColor: customStyles.textInverted }}
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
       {/* Contenido Principal */}
       <div className="container-fluid px-4 py-4">
         <div className="row">
