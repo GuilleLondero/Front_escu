@@ -7,8 +7,14 @@ import MainLayout from "./components/layouts/MainLayout";
 
 function App() {
   const Dashboard = lazy(() => import("./views/Dashboard"));
-  const Notifications = lazy(() => import("./views/Notifications"));
   const Profile = lazy(() => import("./views/Profile"));
+  const MyPayments = lazy(() => import("./views/myPayments"));
+  const Notifications = lazy(() => import("./views/Notifications"));
+
+  /* Nuevos componentes para admin
+  const GestionAlumnos = lazy(() => import("./views/GestionAlumnos"));
+  const GestionPagos = lazy(() => import("./views/GestionPagos"));
+  const GestionCarreras = lazy(() => import("./views/GestionCarreras"));*/
 
   return (
     <BrowserRouter>
@@ -23,6 +29,12 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/myPayments" element={<MyPayments />} />
+
+            {/* Nuevas rutas para ADMIN 
+            <Route path="/gestion-alumnos" element={<GestionAlumnos />} />
+            <Route path="/gestion-pagos" element={<GestionPagos />} />
+            <Route path="/gestion-carreras" element={<GestionCarreras />} />*/}
           </Route>
         </Route>
       </Routes>
