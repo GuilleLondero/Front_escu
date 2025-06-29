@@ -1,101 +1,47 @@
-import { useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function handleLogout() {
-  localStorage.removeItem("user");
-  localStorage.removeItem("token");
-  window.location.href = "/login";
-}
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Navbar() {
+  const [tipoUsuario, setTipoUsuario] = useState<string | null>(null);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const userType = user.type;
 
-  const customStyles = {
-    primaryColor: '#4F46E5',
-    secondaryColor: '#6366F1',
-    textInverted: '#F9FAFB'
-  };
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setTipoUsuario(user.userdetail?.type || user.type || null);
+    }
+  }, []);
+
+  function handleLogout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
 
   return (
-    <nav className="navbar navbar-expand-lg shadow-sm" style={{ backgroundColor: customStyles.primaryColor }}>
-      <div className="container-fluid px-4">
-        {/* Logo/Título */}
-        <span className="navbar-brand mb-0 h1 text-white fw-bold fs-3">
-          Sistema-Escuela
-        </span>
-        
-        {/* Navegación condicional según tipo de usuario */}
-        <div className="navbar-nav d-flex flex-row me-auto">
-          {userType === "alumno" && (
-            <>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/dashboard')}
-                style={{ background: 'none' }}
-              >
-                Panel Usuario
-              </button>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/profile')}
-                style={{ background: 'none' }}
-              >
-                Mi Perfil
-              </button>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/myPayments')}
-                style={{ background: 'none' }}
-              >
-                Mis Pagos
-              </button>
-            </>
-          )}
+    <nav style={{ padding: "1rem", background: "#f0f0f0" }}>
+      {tipoUsuario === "Administrativo" && (
+        <>
+          <NavLink to="/admin/perfil" style={{ marginRight: "1rem" }}>Perfil</NavLink>
+          <NavLink to="/admin/alumnos" style={{ marginRight: "1rem" }}>Alumnos</NavLink>
+          <NavLink to="/admin/pagos" style={{ marginRight: "1rem" }}>Pagos</NavLink>
+          <NavLink to="/admin/carreras" style={{ marginRight: "1rem" }}>Carreras</NavLink>
+        </>
+      )}
 
-          {userType === "admin" && (
-            <>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/mi-perfil')}
-                style={{ background: 'none' }}
-              >
-                Mi Perfil
-              </button>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/gestion-alumnos')}
-                style={{ background: 'none' }}
-              >
-                Gestión Alumnos
-              </button>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/gestion-pagos')}
-                style={{ background: 'none' }}
-              >
-                Gestión Pagos
-              </button>
-              <button 
-                className="btn btn-link text-white mx-3 fw-medium text-decoration-none border-0 p-0"
-                onClick={() => navigate('/gestion-carreras')}
-                style={{ background: 'none' }}
-              >
-                Gestión Carreras
-              </button>
-            </>
-          )}
-        </div>
-        
-        <button 
-          className="btn btn-outline-light rounded-2 fw-medium"
-          onClick={handleLogout}
-          style={{ borderColor: customStyles.textInverted }}
-        >
-          Cerrar Sesión
-        </button>
-      </div>
+      {tipoUsuario === "Alumno" && (
+        <>
+          <NavLink to="/dashboard/perfil" style={{ marginRight: "1rem" }}>Perfil</NavLink>
+          <NavLink to="/dashboard/pagos" style={{ marginRight: "1rem" }}>Mis Pagos</NavLink>
+        </>
+      )}
+
+      <NavLink to="/login" onClick={handleLogout}>
+        Logout
+      </NavLink>
+
     </nav>
   );
 }

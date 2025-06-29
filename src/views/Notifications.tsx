@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 type Props = {};
 
 function Notifications({}: Props) {

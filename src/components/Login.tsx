@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -24,16 +27,30 @@ function Login() {
 
   const navigate = useNavigate();
 
-  function loginProcess(dataObject: LoginProcessResponse) {
-    if (dataObject.status === "success") {
-      localStorage.setItem("token", dataObject.token ?? "");
-      localStorage.setItem("user", JSON.stringify(dataObject.user));
-      //setMessage("Initiating session...");
-      navigate("/dashboard");
-    } else {
-      setMessage(dataObject.message ?? "Unknown error");
-    }
+
+function loginProcess(dataObject: LoginProcessResponse) {
+  if (dataObject.status === "success") {
+    localStorage.setItem("token", dataObject.token ?? "");
+
+    // cambie esto - estructura adaptada con userdetail
+    const user = {
+      username: (dataObject.user as any).username,
+      userdetail: {
+        first_name: (dataObject.user as any).first_name,
+        last_name: (dataObject.user as any).last_name,
+        email: (dataObject.user as any).email,
+        type: (dataObject.user as any).type,
+      },
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    setMessage("Initiating session...");
+    navigate("/dashboard");
+  } else {
+    setMessage(dataObject.message ?? "Unknown error");
+
   }
+}
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -87,14 +104,14 @@ function Login() {
         className="card p-4 shadow-lg"
         style={{ maxWidth: "400px", width: "100%" }}
       >
-        <h1 className="text-center mb-3">Login</h1>
+        <h1 className="text-center mb-3">inicio de sesion</h1>
         <form onSubmit={handleLogin}>
-        <div className="mb-3">
-          <label htmlFor="inputUser" className="form-label">User</label>
-          <div className="input-group">
-            <span className="input-group-text bg-white border-end-0">
-              <i className="bi bi-person" />
-            </span>
+
+          <div className="mb-3">
+            <label htmlFor="inputUser" className="form-label">
+              usuario
+            </label>
+
             <input
               type="text"
               className="form-control border-start-0"
@@ -102,15 +119,18 @@ function Login() {
               ref={userInputRef}
               aria-describedby="userHelp"
             />
-          </div>
-      </div>
 
-        <div className="mb-4">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <div className="input-group">
-            <span className="input-group-text bg-white border-end-0">
-              <i className="bi bi-lock" />
-            </span>
+            <div id="userHelp" className="form-text">
+             
+            </div>
+
+
+ facuFront
+          <div className="mb-4">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              contraseña
+            </label>
+
             <input
               type="password"
               className="form-control border-start-0"
@@ -118,24 +138,101 @@ function Login() {
               ref={passInputRef}
             />
           </div>
-        </div>
 
-  <div className="text-center">
-    <button type="submit" className="btn btn-primary px-4 py-1 fs-5">
-      Login
-    </button>
-    <div className="mt-3">
-      <span>¿No tienes cuenta? </span>
-      <Link to="/register" className="text-primary text-decoration-none fw-semibold">
-        Crear una aquí
-      </Link>
-    </div>
-    <div className="mt-2 text-danger">{message}</div>
-  </div>
-</form>
+
+        
+
+          <button type="submit" className="btn btn-primary">
+            Enviar
+          </button>
+          <span className="ms-3">{message}</span>
+        </form>
+
       </div>
     </div>
   );
 }
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import PublicRoutes from "./components/router/PublicRoutes";
 import ProtectedRoutes from "./components/router/ProtectedRoutes";
 import MainLayout from "./components/layouts/MainLayout";
+import DashboardAdmin from "./views/DashboardAdmin"; 
+
 
 function App() {
   const Dashboard = lazy(() => import("./views/Dashboard"));
@@ -19,22 +21,23 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Rutas públicas */}
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
         </Route>
 
+        {/* Rutas protegidas */}
         <Route element={<ProtectedRoutes />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/myPayments" element={<MyPayments />} />
+t
 
-            {/* Nuevas rutas para ADMIN 
-            <Route path="/gestion-alumnos" element={<GestionAlumnos />} />
-            <Route path="/gestion-pagos" element={<GestionPagos />} />
-            <Route path="/gestion-carreras" element={<GestionCarreras />} />*/}
+            {/* ✅ Ruta única para todas las internas del panel admin */}
+            <Route path="/admin/*" element={<DashboardAdmin />} />
+
           </Route>
         </Route>
       </Routes>
@@ -43,4 +46,3 @@ function App() {
 }
 
 export default App;
-

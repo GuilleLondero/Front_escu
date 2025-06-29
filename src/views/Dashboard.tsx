@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+import { useEffect, useState } from "react";
+
+
 
 function Dashboard() {
   const userName = JSON.parse(localStorage.getItem("user") || "{}").first_name || "Usuario";
@@ -35,12 +41,12 @@ function Dashboard() {
   }
 
   function get_users_all() {
-    setLoading(true);
-    setError(null);
-    
+
     const token = localStorage.getItem("token");
-    
-    const myHeaders = new Headers();
+      
+
+    var myHeaders = new Headers();
+
     myHeaders.append("Authorization", `Bearer ${token}`);
     myHeaders.append("Content-Type", "application/json");
 
