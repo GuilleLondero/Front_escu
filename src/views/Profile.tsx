@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 type Props = {};
 
 function Profile({}: Props) {

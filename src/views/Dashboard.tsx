@@ -1,3 +1,7 @@
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 import { useEffect, useState } from "react";
 
 function Dashboard() {
@@ -18,8 +22,8 @@ function Dashboard() {
   }
 
   function get_users_all() {
-    const token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTAyMDMxMjAsImV4cCI6MTc1MDIzMTkyMCwidXNlcm5hbWUiOiJsaW9lc2NhbG9uaSJ9.E8dJhstJGyWta28rhXwzlXigAUENOGEYXdR9N7M63oI";
+    const token = localStorage.getItem("token");
+      
 
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);

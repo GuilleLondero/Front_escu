@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,16 +25,28 @@ function Login() {
 
   const navigate = useNavigate();
 
-  function loginProcess(dataObject: LoginProcessResponse) {
-    if (dataObject.status === "success") {
-      localStorage.setItem("token", dataObject.token ?? "");
-      localStorage.setItem("user", JSON.stringify(dataObject.user));
-      setMessage("Initiating session...");
-      navigate("/dashboard");
-    } else {
-      setMessage(dataObject.message ?? "Unknown error");
-    }
+function loginProcess(dataObject: LoginProcessResponse) {
+  if (dataObject.status === "success") {
+    localStorage.setItem("token", dataObject.token ?? "");
+
+    // cambie esto - estructura adaptada con userdetail
+    const user = {
+      username: (dataObject.user as any).username,
+      userdetail: {
+        first_name: (dataObject.user as any).first_name,
+        last_name: (dataObject.user as any).last_name,
+        email: (dataObject.user as any).email,
+        type: (dataObject.user as any).type,
+      },
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    setMessage("Initiating session...");
+    navigate("/dashboard");
+  } else {
+    setMessage(dataObject.message ?? "Unknown error");
   }
+}
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -89,11 +104,11 @@ function Login() {
         className="card p-4 shadow-lg"
         style={{ maxWidth: "400px", width: "100%" }}
       >
-        <h1 className="text-center mb-3">Login</h1>
+        <h1 className="text-center mb-3">inicio de sesion</h1>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="inputUser" className="form-label">
-              User
+              usuario
             </label>
             <input
               type="text"
@@ -103,13 +118,13 @@ function Login() {
               aria-describedby="userHelp"
             />
             <div id="userHelp" className="form-text">
-              Nunca compartas tu cuenta con nadie.
+             
             </div>
           </div>
 
           <div className="mb-4">
             <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
+              contraseña
             </label>
             <input
               type="password"
@@ -119,10 +134,10 @@ function Login() {
             />
           </div>
 
-          <input type="text" onChange={handleChangeHola} />
+        
 
           <button type="submit" className="btn btn-primary">
-            Submit
+            Enviar
           </button>
           <span className="ms-3">{message}</span>
         </form>
@@ -132,3 +147,85 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
