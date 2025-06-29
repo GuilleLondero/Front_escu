@@ -9,8 +9,14 @@ import DashboardAdmin from "./views/DashboardAdmin";
 
 function App() {
   const Dashboard = lazy(() => import("./views/Dashboard"));
-  const Notifications = lazy(() => import("./views/Notifications"));
   const Profile = lazy(() => import("./views/Profile"));
+  const MyPayments = lazy(() => import("./views/myPayments"));
+  const Notifications = lazy(() => import("./views/Notifications"));
+
+  /* Nuevos componentes para admin
+  const GestionAlumnos = lazy(() => import("./views/GestionAlumnos"));
+  const GestionPagos = lazy(() => import("./views/GestionPagos"));
+  const GestionCarreras = lazy(() => import("./views/GestionCarreras"));*/
 
   return (
     <BrowserRouter>
@@ -27,9 +33,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
+t
 
             {/* ✅ Ruta única para todas las internas del panel admin */}
             <Route path="/admin/*" element={<DashboardAdmin />} />
+
           </Route>
         </Route>
       </Routes>

@@ -3,6 +3,8 @@
 
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 type LoginProcessResponse = {
   status: string;
@@ -25,6 +27,7 @@ function Login() {
 
   const navigate = useNavigate();
 
+
 function loginProcess(dataObject: LoginProcessResponse) {
   if (dataObject.status === "success") {
     localStorage.setItem("token", dataObject.token ?? "");
@@ -45,6 +48,7 @@ function loginProcess(dataObject: LoginProcessResponse) {
     navigate("/dashboard");
   } else {
     setMessage(dataObject.message ?? "Unknown error");
+
   }
 }
 
@@ -76,10 +80,6 @@ function loginProcess(dataObject: LoginProcessResponse) {
     const tieneNumero = /\d/.test(p);
   }
 
-  function handleChangeHola(e: any) {
-    setNewPassword(e.target.value);
-  }
-
   useEffect(() => {
     //se ejecuta 2°
     if (newPassword) checkNewPassword(newPassword);
@@ -106,33 +106,39 @@ function loginProcess(dataObject: LoginProcessResponse) {
       >
         <h1 className="text-center mb-3">inicio de sesion</h1>
         <form onSubmit={handleLogin}>
+
           <div className="mb-3">
             <label htmlFor="inputUser" className="form-label">
               usuario
             </label>
+
             <input
               type="text"
-              className="form-control"
+              className="form-control border-start-0"
               id="inputUser"
               ref={userInputRef}
               aria-describedby="userHelp"
             />
+
             <div id="userHelp" className="form-text">
              
             </div>
-          </div>
 
+
+ facuFront
           <div className="mb-4">
             <label htmlFor="exampleInputPassword1" className="form-label">
               contraseña
             </label>
+
             <input
               type="password"
-              className="form-control"
+              className="form-control border-start-0"
               id="exampleInputPassword1"
               ref={passInputRef}
             />
           </div>
+
 
         
 
@@ -141,6 +147,7 @@ function loginProcess(dataObject: LoginProcessResponse) {
           </button>
           <span className="ms-3">{message}</span>
         </form>
+
       </div>
     </div>
   );

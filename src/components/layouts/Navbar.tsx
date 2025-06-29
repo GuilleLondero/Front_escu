@@ -1,3 +1,4 @@
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -40,6 +41,7 @@ function Navbar() {
       <NavLink to="/login" onClick={handleLogout}>
         Logout
       </NavLink>
+
     </nav>
   );
 }
